@@ -17,11 +17,10 @@ namespace SpaceEscape
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Enemy"))
-            {
-                Destroy(gameObject);
-                Destroy(other.gameObject);
-            }
+            if (!other.gameObject.CompareTag("Enemy")) return;
+            
+            Destroy(gameObject);
+            Destroy(other.gameObject);
         }
     }
 }

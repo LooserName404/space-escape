@@ -58,13 +58,11 @@ namespace SpaceEscape
 
         private void OnDrawGizmos()
         {
-            if (_positions?.Length > 0)
+            if (!(_positions?.Length > 0)) return;
+            foreach (var position in _positions)
             {
-                foreach (var position in _positions)
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawSphere(position + (Vector2)transform.position, 0.25f);
-                }
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(position + (Vector2)transform.position, 0.25f);
             }
         }
     }

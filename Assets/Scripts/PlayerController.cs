@@ -29,29 +29,28 @@ namespace SpaceEscape
 
         private void Move()
         {
-            var dir = Vector2.zero;
-            dir.x = Input.acceleration.x;
-            dir.y = Input.acceleration.y;
+            var direction = Vector2.zero;
+            direction.x = Input.acceleration.x;
+            direction.y = Input.acceleration.y;
 
-            if (dir.sqrMagnitude > 1)
+            if (direction.sqrMagnitude > 1)
             {
-                dir.Normalize();
-                if (dir.x > 0 && dir.y > 0)
+                direction.Normalize();
+                if (direction.x > 0 && direction.y > 0)
                 {
-                    dir *= 0.5f;
+                    direction *= 0.5f;
                 }
             }
 
             var time = Time.deltaTime;
             
-            var force = dir * (speed * time);
+            var force = direction * (speed * time);
             _rb.AddForce(force, ForceMode2D.Force);
             
             var (x, y) = _rb.velocity;
-            var (xAbs, yAbs) = _rb.velocity.Abs();
-            _rb.velocity = new Vector2(xAbs > maxVelocity ? maxVelocity : x, yAbs > maxVelocity ? maxVelocity : y);
-            _lastInput = dir;
-            
+            var (xAbsolute, yAbsolute) = _rb.velocity.Abs();
+            _rb.velocity = new Vector2(xAbsolute > maxVelocity ? maxVelocity : x, yAbsolute > maxVelocity ? maxVelocity : y);
+            _lastInput = direction;
         }
 
         private void Shoot()
