@@ -1,9 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using SpaceEscape.EventSystem;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace SpaceEscape
 {
     public class EnemyController : MonoBehaviour
     {
+        [SerializeField] private GameEvent onEnemyDie;
+        
         private Transform _target;
         private float _moveRate;
 
@@ -23,6 +28,11 @@ namespace SpaceEscape
             {
                 transform.position = Vector3.MoveTowards(transform.position, _target.position, _moveRate * Time.deltaTime);
             }
+        }
+
+        private void OnDestroy()
+        {
+            onEnemyDie.Raise();
         }
     }
 }

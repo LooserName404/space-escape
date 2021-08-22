@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace SpaceEscape.ScriptableObjectVariables
 {
@@ -10,6 +11,8 @@ namespace SpaceEscape.ScriptableObjectVariables
         #endif
         
         public T Value;
+
+        public bool ResetOnRestart;
         
         public void SetValue(T value)
         {
@@ -19,6 +22,14 @@ namespace SpaceEscape.ScriptableObjectVariables
         public void SetValue(Variable<T> value)
         {
             Value = value.Value;
+        }
+
+        private void OnDisable()
+        {
+            if (ResetOnRestart)
+            {
+                Value = default;
+            }
         }
     }
 }

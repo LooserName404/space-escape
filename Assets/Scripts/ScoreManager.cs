@@ -10,9 +10,9 @@ namespace SpaceEscape
 
         [SerializeField] private IntVariable score;
 
-        private void IncreaseScore()
+        public void IncreaseScore()
         {
-            score.Value++;
+            score.Value += 1;
             scoreIncreased.Raise();
         }
     }
