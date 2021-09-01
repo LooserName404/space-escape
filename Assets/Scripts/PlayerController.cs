@@ -1,5 +1,8 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using SpaceEscape.Utils;
+using UnityEngine.SceneManagement;
 
 namespace SpaceEscape
 {
@@ -14,20 +17,29 @@ namespace SpaceEscape
         private Rigidbody2D _rb;
 
         private Vector2 _lastInput;
+        private bool _canShoot;
+        private IEnumerator _shotCooldownCoroutine;
+        private Vector2 _currentForce;
 
         void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _lastInput = new Vector2();
+            _canShoot = true;
         }
 
         private void Update()
         {
-            Move();
             Shoot();
+            GetForce();
         }
 
-        private void Move()
+        private void FixedUpdate()
+        {
+            Move();
+        }
+
+        private void GetForce()
         {
             var direction = Vector2.zero;
             direction.x = Input.acceleration.x;
@@ -41,16 +53,24 @@ namespace SpaceEscape
                     direction *= 0.5f;
                 }
             }
+            _currentForce = direction * speed;
+            _lastInput = direction;
+        }
 
-            var time = Time.deltaTime;
-            
-            var force = direction * (speed * time);
-            _rb.AddForce(force, ForceMode2D.Force);
+        private void Move()
+        {
+            _rb.AddForce(_currentForce * Time.fixedDeltaTime, ForceMode2D.Force);
             
             var (x, y) = _rb.velocity;
             var (xAbsolute, yAbsolute) = _rb.velocity.Abs();
-            _rb.velocity = new Vector2(xAbsolute > maxVelocity ? maxVelocity : x, yAbsolute > maxVelocity ? maxVelocity : y);
-            _lastInput = direction;
+            var vx = xAbsolute > maxVelocity
+                ? (x > 0 ? maxVelocity : -maxVelocity)
+                : x;
+            var vy =
+                yAbsolute > maxVelocity
+                    ? (y > 0 ? maxVelocity : -maxVelocity)
+                    : y;
+            _rb.velocity = new Vector2(vx, vy);
         }
 
         private void Shoot()
@@ -58,26 +78,48 @@ namespace SpaceEscape
             if (Input.touchCount > 0)
             {
                 var touch = Input.GetTouch(0);
-                if (touch.phase == TouchPhase.Began)
+                if (touch.phase == TouchPhase.Began && _canShoot)
                 {
                     var touchPosition = (Vector2)Camera.main.ScreenToWorldPoint(touch.position);
-                    var position = transform.position;
-                    var position2d = (Vector2)position;
+
+                    _shotCooldownCoroutine = ShotCooldown();
+                    StartCoroutine(_shotCooldownCoroutine);
+
+                    var position2d = (Vector2)transform.position;
                     var shotDirection = touchPosition - position2d;
                     shotDirection.Normalize();
 
-                    var shot = Instantiate(shotPrefab, position2d, Quaternion.LookRotation(Vector3.forward, shotDirection.normalized));
+                    var (lookX, lookY) = touchPosition - _rb.position;
+                    var angle = Mathf.Atan2(lookY, lookX) * Mathf.Rad2Deg - 90f;
+                    
+                    var shot = Instantiate(shotPrefab, position2d, Quaternion.identity);
                     var shotRb = shot.GetComponent<Rigidbody2D>();
+                    
+                    shotRb.rotation = angle;
                     shotRb.velocity = shotDirection * shotSpeed * Time.deltaTime;
                 }
             }
         }
 
+        private IEnumerator ShotCooldown()
+        {
+            _canShoot = false;
+            yield return new WaitForSeconds(0.5f);
+            _canShoot = true;
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (!other.gameObject.CompareTag("Enemy")) return;
-            Destroy(gameObject);
+            StartCoroutine(ResetGame());
             Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+        
+        private static IEnumerator ResetGame()
+        {
+            yield return new WaitForSeconds(5f);
+            SceneManager.LoadScene("Scenes/PlayScene");
         }
     }
 }

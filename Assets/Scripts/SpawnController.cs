@@ -13,11 +13,6 @@ namespace SpaceEscape
 
         private void Awake()
         {
-            var randXP = Random.Range(0, 10);
-            var randXN = Random.Range(0, 10);
-            var randYP = Random.Range(0, 10);
-            var randYN = Random.Range(0, 10);
-
             var topRight = (Vector2) Camera.main.ViewportToWorldPoint(new Vector3(1, 1));
             var topLeft = (Vector2) Camera.main.ViewportToWorldPoint(new Vector3(0, 1));
             var bottomRight = (Vector2) Camera.main.ViewportToWorldPoint(new Vector3(1, 0));
@@ -25,10 +20,10 @@ namespace SpaceEscape
             
             _positions = new[]
             {
-                topRight + new Vector2(randXP, randYP),
-                topLeft + new Vector2(randXN, randYP),
-                bottomRight + new Vector2(randXP, randYN),
-                bottomLeft + new Vector2(randXN, randYN)
+                topRight + new Vector2(2, 2),
+                topLeft + new Vector2(-2, 2),
+                bottomRight + new Vector2(2, -2),
+                bottomLeft + new Vector2(-2, -2)
             };
 
             _rate = new int[4];
