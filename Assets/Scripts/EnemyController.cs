@@ -8,7 +8,9 @@ namespace SpaceEscape
     public class EnemyController : MonoBehaviour
     {
         [SerializeField] private GameEvent onEnemyDie;
-        
+
+        public static Action OnEnemyDieTrigger;
+
         private Transform _target;
         private float _moveRate;
 
@@ -33,6 +35,7 @@ namespace SpaceEscape
         private void OnDestroy()
         {
             onEnemyDie.Raise();
+            OnEnemyDieTrigger?.Invoke();
         }
     }
 }

@@ -6,29 +6,29 @@ namespace SpaceEscape.EventSystem
     [CreateAssetMenu]
     public class GameEvent : ScriptableObject
     {
-        private readonly List<GameEventListener> eventListeners = new List<GameEventListener>();
+        private readonly List<GameEventListener> _eventListeners = new List<GameEventListener>();
 
         public void Raise()
         {
-            for (var i = eventListeners.Count - 1; i >= 0; --i)
+            for (var i = _eventListeners.Count - 1; i >= 0; --i)
             {
-                eventListeners[i].OnEventRaised();
+                _eventListeners[i].OnEventRaised();
             }
         }
 
         public void RegisterListener(GameEventListener listener)
         {
-            if (!eventListeners.Contains(listener))
+            if (!_eventListeners.Contains(listener))
             {
-                eventListeners.Add(listener);
+                _eventListeners.Add(listener);
             }
         }
 
         public void UnregisterListener(GameEventListener listener)
         {
-            if (eventListeners.Contains(listener))
+            if (_eventListeners.Contains(listener))
             {
-                eventListeners.Remove(listener);
+                _eventListeners.Remove(listener);
             }
         }
     }
