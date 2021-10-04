@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using SpaceEscape.EventSystem;
 using UnityEngine;
 using SpaceEscape.Utils;
 using UnityEngine.SceneManagement;
@@ -11,8 +12,10 @@ namespace SpaceEscape
     {
         [SerializeField] private float speed;
         [SerializeField] private float shotSpeed;
-        [SerializeField] private PlayerShot shotPrefab;
         [SerializeField] private float maxVelocity;
+        
+        [SerializeField] private PlayerShot shotPrefab;
+        [SerializeField] private GameEvent onPlayerDie;
 
         private Rigidbody2D _rb;
 
@@ -27,6 +30,11 @@ namespace SpaceEscape
             _lastInput = new Vector2();
             _canShoot = true;
         }
+        
+        private void FixedUpdate()
+        {
+            Move();
+        }
 
         private void Update()
         {
@@ -34,9 +42,16 @@ namespace SpaceEscape
             GetForce();
         }
 
-        private void FixedUpdate()
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            Move();
+            if (!other.gameObject.CompareTag("Enemy")) return;
+            StartCoroutine(ResetGame());
+            Destroy(gameObject);
+        }
+
+        private void OnDestroy()
+        {
+            onPlayerDie.Raise();
         }
 
         private void GetForce()
@@ -108,14 +123,6 @@ namespace SpaceEscape
             _canShoot = true;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (!other.gameObject.CompareTag("Enemy")) return;
-            StartCoroutine(ResetGame());
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-        }
-        
         private static IEnumerator ResetGame()
         {
             yield return new WaitForSeconds(5f);

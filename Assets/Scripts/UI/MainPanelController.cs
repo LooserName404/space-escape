@@ -9,9 +9,17 @@ namespace SpaceEscape.UI
 {
     public class MainPanelController : MonoBehaviour
     {
+        [SerializeField] private GameObject optionPanel;
+        
         public void OnPlayButtonPressed()
         {
             SceneManager.LoadScene("PlayScene");
+        }
+
+        public void OnOptionButtonPressed()
+        {
+            optionPanel.SetActive(true);
+            gameObject.SetActive(false);
         }
 
         public void OnExitButtonPressed()
