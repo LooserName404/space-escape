@@ -1079,7 +1079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc87258cbea849f5bf8708fe58505039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundChunkPrefab: {fileID: 0}
+  backgroundChunkPrefab: {fileID: 8791763283928182066, guid: ef44d86308d4a984bbb1d1f9b71a8f0b, type: 3}
 --- !u!4 &1146441724
 Transform:
   m_ObjectHideFlags: 0
