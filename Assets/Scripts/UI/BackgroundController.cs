@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 namespace SpaceEscape.UI
@@ -7,15 +8,23 @@ namespace SpaceEscape.UI
     {
         [SerializeField] private GameObject backgroundChunkPrefab;
 
-        private GameObject[][] _background = { new GameObject[3], new GameObject[3], new GameObject[3] };
+        private GameObject[][] _background = {new GameObject[3], new GameObject[3], new GameObject[3]};
 
-        private int[][] _xThreshold = { new[] { -1, -1, -1 }, new[] { 0, 0, 0 }, new[] { 1, 1, 1 } };
+        private int[][] _xThreshold = {new[] {-1, 0, 1}, new[] {-1, 0, 1}, new[] {-1, 0, 1}};
 
-        private int[][] _yThreshold = { new[] { 1, 0, -1 }, new[] { 1, 0, -1 }, new[] { 1, 0, -1 } };
+        private int[][] _yThreshold = {new[] {-1, -1, -1}, new[] {0, 0, 0}, new[] {1, 1, 1}};
 
         private Vector2 _size;
-        
-        private enum Direction { LEFT, RIGHT }
+
+        private Vector2 _offset = Vector2.zero;
+
+        private enum Direction
+        {
+            Left,
+            Right,
+            Up,
+            Down
+        }
 
         private void Awake()
         {
@@ -40,68 +49,71 @@ namespace SpaceEscape.UI
 
             if (cam == null) return;
 
-            for (var i = 0; i < _background.Length; i++)
+            var last = _background[_background.Length - 1];
+
+            var minChunk = _background[0][0].transform.position;
+            var maxChunk = last[last.Length - 1].transform.position;
+
+            var negativeBoundX = minChunk.x;
+            var positiveBoundX = maxChunk.x;
+
+            var negativeBoundY = minChunk.y;
+            var positiveBoundY = maxChunk.y;
+
+            var minPos = cam.ViewportToWorldPoint(new Vector3(0, 0, 0));
+            var maxPos = cam.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+            if (minPos.x < negativeBoundX)
             {
-                for (var j = 0; j < _background[i].Length; j++)
-                {
-                    if (i == 1 && j == 1) continue;
+                SwapX(Direction.Right);
+            }
+            else if (maxPos.x > positiveBoundX)
+            {
+                SwapX(Direction.Left);
+            }
 
-                    var xMultiplier = _xThreshold[i][j];
-                    var yMultiplier = _yThreshold[i][j];
-
-                    var pos = _background[i][j].transform.position;
-
-                    if (xMultiplier == -1 && cam.ViewportToWorldPoint(new Vector3(0, 0, 0)).x < pos.x)
-                    {
-                        SwapX(Direction.RIGHT);
-                    }
-                    else if (xMultiplier == 1 && cam.ViewportToWorldPoint(new Vector3(1, 0, 0)).x > pos.x)
-                    {
-                        Debug.Log("Plus X");
-                    }
-                }
+            if (minPos.y < negativeBoundY)
+            {
+                SwapY(Direction.Down);
+            }
+            else if (maxPos.y > positiveBoundY)
+            {
+                SwapY(Direction.Up);
             }
         }
 
         private void SwapX(Direction direction)
         {
-            var len = _background.Length;
-            if (direction == Direction.LEFT)
+            var multiplier = direction switch
             {
-                var aux = _background[0];
-                
-                for (var i = 0; i < len - 1; i++)
-                {
-                    _background[i] = _background[i + 1];
-                }
+                Direction.Left => 1,
+                Direction.Right => -1,
+                _ => 0
+            };
 
-                _background[_background.Length - 1] = aux;
-
-                for (var i = 0; i < _background.Length; i++)
+            foreach (var chunks in _background)
+            {
+                foreach (var chunk in chunks)
                 {
-                    for (int j = 0; j < _background[i].Length; j++)
-                    {
-                        _background[i][j].transform.position += new Vector3(_size.x * 1.5f, 0, 0);
-                    }
+                    chunk.transform.position += new Vector3(_size.x / 2 * 1.5f * multiplier, 0, 0);
                 }
             }
-            else if (direction == Direction.RIGHT)
+        }
+
+        private void SwapY(Direction direction)
+        {
+            var multiplier = direction switch
             {
-                var aux = _background[len - 1];
-                
-                for (var i = len - 1; i > 1; i--)
-                {
-                    _background[i] = _background[i - 1];
-                }
+                Direction.Up => 1,
+                Direction.Down => -1,
+                _ => 0
+            };
 
-                _background[0] = aux;
-
-                for (var i = 0; i < _background.Length; i++)
+            foreach (var chunks in _background)
+            {
+                foreach (var chunk in chunks)
                 {
-                    for (int j = 0; j < _background[i].Length; j++)
-                    {
-                        _background[i][j].transform.position -= new Vector3(_size.x * 1.5f, 0, 0);
-                    }
+                    chunk.transform.position += new Vector3(0, _size.y / 2 * 1.38f * multiplier, 0);
                 }
             }
         }
@@ -124,7 +136,29 @@ namespace SpaceEscape.UI
                 _ => throw new ArgumentOutOfRangeException()
             };
 
-            return new Vector3(posX, posY, 10);
+            var vec = new Vector3(posX, posY, 10);
+            return vec;
+        }
+
+        private void OnDrawGizmos()
+        {
+            var cam = Camera.main;
+
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(cam.ViewportToWorldPoint(new Vector3(0, 0.5f, 0)), 1);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(cam.ViewportToWorldPoint(new Vector3(1, 0.5f, 0)), 1);
+            Gizmos.color = Color.green;
+            foreach (var line in _background)
+            {
+                foreach (var bg in line)
+                {
+                    if (bg != null)
+                    {
+                        Gizmos.DrawSphere(bg.transform.position, 0.5f);
+                    }
+                }
+            }
         }
     }
 }
