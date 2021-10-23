@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 6204887}
   - component: {fileID: 6204889}
   - component: {fileID: 6204888}
+  - component: {fileID: 6204890}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -257,6 +258,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6204886}
   m_CullTransparentMesh: 1
+--- !u!114 &6204890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40babda8f0f14fb9a4db3176407ea28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: game_over_retry
 --- !u!1 &146327978
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +619,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 60}
-  m_SizeDelta: {x: 240, y: 50}
+  m_SizeDelta: {x: 240, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &700056335
 MonoBehaviour:
@@ -712,6 +726,7 @@ GameObject:
   - component: {fileID: 825102747}
   - component: {fileID: 825102749}
   - component: {fileID: 825102748}
+  - component: {fileID: 825102750}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -837,6 +852,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825102746}
   m_CullTransparentMesh: 1
+--- !u!114 &825102750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825102746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40babda8f0f14fb9a4db3176407ea28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: game_over_exit
 --- !u!1 &947721160
 GameObject:
   m_ObjectHideFlags: 0
@@ -1585,7 +1613,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -50}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 180, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1565486615
 MonoBehaviour:

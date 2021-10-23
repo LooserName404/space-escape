@@ -16,12 +16,6 @@ namespace SpaceEscape.UI
             SceneManager.LoadScene("PlayScene");
         }
 
-        public void OnOptionButtonPressed()
-        {
-            optionPanel.SetActive(true);
-            gameObject.SetActive(false);
-        }
-
         public void OnExitButtonPressed()
         {
 #if UNITY_EDITOR
