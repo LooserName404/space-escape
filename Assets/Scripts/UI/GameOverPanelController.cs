@@ -1,5 +1,4 @@
-﻿using System;
-using SpaceEscape.Localizer;
+﻿using SpaceEscape.Localizer;
 using SpaceEscape.ScriptableObjectVariables;
 using TMPro;
 using UnityEngine;
@@ -10,16 +9,11 @@ namespace SpaceEscape.UI
     public class GameOverPanelController : MonoBehaviour
     {
         [SerializeField] private IntVariable score;
-        [SerializeField] private TMP_Text highScoreTitle;
-        
+        [SerializeField] private TMP_Text highscoreTitle;
+
         private void OnEnable()
         {
-            var high = PlayerPrefs.GetInt("highscore");
-            if (score.Value > high)
-            {
-                highScoreTitle.gameObject.SetActive(true);
-                UpdateHighScoreText();
-            }
+            UpdateHighscoreText();
         }
 
         public void OnRestartButtonPressed()
@@ -32,10 +26,10 @@ namespace SpaceEscape.UI
             SceneManager.LoadScene("MenuScene");
         }
 
-        private void UpdateHighScoreText()
+        private void UpdateHighscoreText()
         {
             var text = Localization.Localize("new_highscore");
-            highScoreTitle.text = $"{text}\nx{score.Value}";
+            highscoreTitle.text = $"{text}\nx{score.Value}";
         }
     }
 }

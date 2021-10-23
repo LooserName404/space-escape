@@ -422,6 +422,7 @@ GameObject:
   - component: {fileID: 476449753}
   - component: {fileID: 476449752}
   - component: {fileID: 476449754}
+  - component: {fileID: 476449755}
   m_Layer: 0
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -442,7 +443,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreIncreased: {fileID: 11400000, guid: e29f699c924c313489fb82669aea1505, type: 2}
+  highscoreIncreased: {fileID: 11400000, guid: 04512261710a65f969d65f3c1db98cdd, type: 2}
   score: {fileID: 11400000, guid: 2079279bf7a73554295882c74b80d1c9, type: 2}
+  highscore: {fileID: 11400000, guid: 23a04457465729f9abf68b299696bc46, type: 2}
 --- !u!4 &476449753
 Transform:
   m_ObjectHideFlags: 0
@@ -476,6 +479,34 @@ MonoBehaviour:
       - m_Target: {fileID: 476449752}
         m_TargetAssemblyTypeName: SpaceEscape.ScoreManager, Assembly-CSharp
         m_MethodName: IncreaseScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &476449755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 476449751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bec620cca08403c92d587963580082d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 19c28f20e9804074b917da5cf4a91cdc, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 476449752}
+        m_TargetAssemblyTypeName: SpaceEscape.ScoreManager, Assembly-CSharp
+        m_MethodName: HandleHighscore
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1856,6 +1887,7 @@ GameObject:
   - component: {fileID: 1935189266}
   - component: {fileID: 1935189265}
   - component: {fileID: 1935189264}
+  - component: {fileID: 1935189267}
   m_Layer: 5
   m_Name: RestartPanel
   m_TagString: Untagged
@@ -1898,7 +1930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: {fileID: 11400000, guid: 2079279bf7a73554295882c74b80d1c9, type: 2}
-  highScoreTitle: {fileID: 2113979829}
+  highscoreTitle: {fileID: 2113979829}
 --- !u!114 &1935189265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1937,6 +1969,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1935189262}
   m_CullTransparentMesh: 1
+--- !u!114 &1935189267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935189262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bec620cca08403c92d587963580082d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 04512261710a65f969d65f3c1db98cdd, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2113979827}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1 &2113979827
 GameObject:
   m_ObjectHideFlags: 0

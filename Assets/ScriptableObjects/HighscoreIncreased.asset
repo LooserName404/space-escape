@@ -9,10 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 164cb87ffaaa4daf99df8e24528fdb6c, type: 3}
-  m_Name: Kill30Enemies
+  m_Script: {fileID: 11500000, guid: 30908598eb51fe24fb13ac1fcb2fdf05, type: 3}
+  m_Name: HighscoreIncreased
   m_EditorClassIdentifier: 
-  titleKey: achievement_kill_30_title
-  descriptionKey: achievement_kill_30_desc
-  currentScore: {fileID: 11400000, guid: 2079279bf7a73554295882c74b80d1c9, type: 2}
-  targetValue: 30
