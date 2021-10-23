@@ -11,3 +11,10 @@ languages_menu_title,Idiomas,Language
 languages_menu_back,Voltar,Back
 game_over_retry,Jogar Novamente,Play Again
 game_over_exit,Voltar ao Menu,Back to Menu
+score_label,Pontos,Score
+loading,Carregando…,Loading…
+new_highscore,Novo Recorde!,New Highscore!
+achievement_kill_3_title,Killing Spree!,Killing Spree!
+achievement_kill_3_desc,Você matou 3 desses desgraçados! Continue assim!,You’ve killed 3 of these scumbags! Keep going!
+achievement_kill_30_title,Caçador de Aliens,Alien Hunter
+achievement_kill_30_desc,Você já matou 30 aliens??,You’ve already killed 30 aliens??

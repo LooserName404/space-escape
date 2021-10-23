@@ -21,7 +21,7 @@ namespace SpaceEscape.Achievements.Types
 
         protected override void Trigger()
         {
-            OnTrigger?.Invoke(title, description);
+            OnTrigger?.Invoke(titleKey, descriptionKey);
             EnemyController.OnEnemyDieTrigger -= Check;
         }
     }

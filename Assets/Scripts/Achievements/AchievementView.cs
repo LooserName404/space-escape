@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SpaceEscape.Localizer;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -10,8 +11,8 @@ namespace SpaceEscape.Achievements
     {
         private class PopUp
         {
-            public string Title { get; set; }
-            public string Description { get; set; }
+            public string TitleKey { get; set; }
+            public string DescriptionKey { get; set; }
         }
 
         [SerializeField] private Image panel;
@@ -38,15 +39,15 @@ namespace SpaceEscape.Achievements
             }
         }
 
-        public void EnqueueAchievement(string title, string description)
+        public void EnqueueAchievement(string titleKey, string descriptionKey)
         {
-            _queue.Add(new PopUp {Title = title, Description = description});
+            _queue.Add(new PopUp {TitleKey = titleKey, DescriptionKey = descriptionKey});
         }
 
         private IEnumerator ShowPanel(PopUp popUp)
         {
-            titleText.SetText(popUp.Title);
-            descriptionText.SetText(popUp.Description);
+            titleText.SetText(Localization.Localize(popUp.TitleKey));
+            descriptionText.SetText(Localization.Localize(popUp.DescriptionKey));
             panel.gameObject.SetActive(true);
             yield return new WaitForSeconds(5);
             panel.gameObject.SetActive(false);
