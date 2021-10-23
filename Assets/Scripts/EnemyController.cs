@@ -1,5 +1,6 @@
 ﻿using System;
 using SpaceEscape.EventSystem;
+using SpaceEscape.ScriptableObjectVariables;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +9,7 @@ namespace SpaceEscape
     public class EnemyController : MonoBehaviour
     {
         [SerializeField] private GameEvent onEnemyDie;
+        [SerializeField] private Variable<Vector3> lastDeadEnemyPosition;
 
         public static Action OnEnemyDieTrigger;
 
@@ -34,6 +36,7 @@ namespace SpaceEscape
 
         private void OnDestroy()
         {
+            lastDeadEnemyPosition.SetValue(transform.position);
             onEnemyDie.Raise();
             OnEnemyDieTrigger?.Invoke();
         }

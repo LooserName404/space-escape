@@ -20,6 +20,7 @@ namespace SpaceEscape.UI
         private void Awake()
         {
             _text = GetComponent<Text>();
+            UpdateScoreLabel();
             UpdateScoreText();
         }
 
