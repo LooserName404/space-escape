@@ -1,12 +1,19 @@
 key,pt-BR,en-US
 main_menu_play,Jogar,Play
 main_menu_options,Opções,Options
+main_menu_credits,Créditos,Credits
 main_menu_exit,Sair,Exit
 options_menu_title,Opções,Options
 options_menu_language,Idioma,Language
 options_menu_music,Música,Music
 options_menu_sounds,Sons,Sounds
 options_menu_back,Voltar,Back
+credits_menu_title,Créditos,Credits
+credits_menu_made_by_title,"Programação, Design do Jogo, SFX & “Arte”","Programming, Game Design, SFX & ""Art"""
+credits_menu_music_by_title,Música,Music
+credits_menu_about_title,Sobre,About
+credits_menu_about_desc,Esse jogo foi feito como um trabalho de conclusão para o Curso de Programação de Jogos com Unity da GAMEscola,This game was made as a conclusion work for the GAMEscola's Unity Game Programming Course
+credits_menu_back,Voltar,Back
 languages_menu_title,Idiomas,Language
 languages_menu_back,Voltar,Back
 game_over_retry,Jogar Novamente,Play Again
