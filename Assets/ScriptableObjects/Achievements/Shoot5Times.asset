@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 551c1f52098c4b15933f79ad62452e3b, type: 3}
+  m_Name: Shoot5Times
+  m_EditorClassIdentifier: 
+  titleKey: achievement_shoot_5_title
+  descriptionKey: achievement_shoot_5_desc
+  completed: {fileID: 11400000, guid: ddf9c7341e1b054758dfa02b171b93e7, type: 2}
+  target: 5
+  currentShots: {fileID: 11400000, guid: 9376baa8c5342dcafb144eb07900a127, type: 2}
+  onShoot: {fileID: 11400000, guid: 10066a28f9d0ccd6bab99959ae2d59cb, type: 2}

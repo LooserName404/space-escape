@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleKey: achievement_kill_3_title
   descriptionKey: achievement_kill_3_desc
+  completed: {fileID: 11400000, guid: ddf9c7341e1b054758dfa02b171b93e7, type: 2}
   currentScore: {fileID: 11400000, guid: 2079279bf7a73554295882c74b80d1c9, type: 2}
   targetValue: 3

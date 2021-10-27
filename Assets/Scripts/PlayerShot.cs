@@ -1,17 +1,30 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
+using SpaceEscape.Audio;
+using SpaceEscape.EventSystem;
+using SpaceEscape.ScriptableObjectVariables;
 using UnityEngine;
 
 namespace SpaceEscape
 {
     [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(AudioClip))]
     public class PlayerShot : MonoBehaviour
     {
+        [SerializeField] private AudioClip audioClip;
+
+        [SerializeField] private GameEvent onShoot;
+        [SerializeField] private GameEvent onEnemyDie;
+        [SerializeField] private Variable<Vector3> lastDeadEnemyPosition;
+
+
         private IEnumerator _coroutine;
+
         private void Start()
         {
             _coroutine = Expire();
             StartCoroutine(_coroutine);
+            onShoot.Raise();
+            AudioManager.Instance.PlaySound(audioClip, transform.position);
         }
 
         private void Update()
@@ -42,8 +55,13 @@ namespace SpaceEscape
             
             StopCoroutine(_coroutine);
             
+            lastDeadEnemyPosition.SetValue(transform.position);
+            
             Destroy(gameObject);
             Destroy(other.gameObject);
+            
+            onEnemyDie.Raise();
+            EnemyController.OnEnemyDieTrigger?.Invoke();
         }
     }
 }

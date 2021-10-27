@@ -118,6 +118,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72db60eb6b304fe7b9634197e203d118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: e5b83c8dee61a7135a3141b825d06f3e, type: 3}
+  onShoot: {fileID: 11400000, guid: 10066a28f9d0ccd6bab99959ae2d59cb, type: 2}
+  onEnemyDie: {fileID: 11400000, guid: 9aa5e4a393bdcf743a4ae57c4a8a735b, type: 2}
+  lastDeadEnemyPosition: {fileID: 11400000, guid: 6be323a9263a12429ad7f1e3e17d33a2, type: 2}
 --- !u!70 &1103868531257340588
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
