@@ -61,7 +61,6 @@ namespace SpaceEscape
             Destroy(other.gameObject);
             
             onEnemyDie.Raise();
-            EnemyController.OnEnemyDieTrigger?.Invoke();
         }
     }
 }

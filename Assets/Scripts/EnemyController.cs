@@ -1,13 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace SpaceEscape
 {
     public class EnemyController : MonoBehaviour
     {
-        public static Action OnEnemyDieTrigger;
-
         private Transform _target;
         private float _moveRate;
 

@@ -1,4 +1,5 @@
-﻿using SpaceEscape.ScriptableObjectVariables;
+﻿using SpaceEscape.EventSystem;
+using SpaceEscape.ScriptableObjectVariables;
 using UnityEngine;
 
 namespace SpaceEscape.Achievements.Types
@@ -8,10 +9,14 @@ namespace SpaceEscape.Achievements.Types
     {
         public IntVariable currentScore;
         public int targetValue;
+
+        [SerializeField] private GameEvent onEnemyDie;
+
+        private GameEventListener _eventListener;
         
         public override void Register()
         {
-            EnemyController.OnEnemyDieTrigger += Check;
+            _eventListener = GameEventListener.Create(onEnemyDie, Check);
         }
 
         protected override void Check()
@@ -22,7 +27,7 @@ namespace SpaceEscape.Achievements.Types
         protected override void Trigger()
         {
             OnTrigger?.Invoke(titleKey, descriptionKey);
-            EnemyController.OnEnemyDieTrigger -= Check;
+            Destroy(_eventListener.gameObject);
         }
     }
 }
