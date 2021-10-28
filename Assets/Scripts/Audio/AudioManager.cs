@@ -24,7 +24,7 @@ namespace SpaceEscape.Audio
         public void PlaySound(AudioClip clip, Vector3 pos)
         {
             if (!isSoundEnabled.Value) return;
-            
+
             var ap = GetAudioPlayer();
             ap.PlaySound(clip, pos);
         }
@@ -32,7 +32,7 @@ namespace SpaceEscape.Audio
         public void PlayMusic(AudioClip clip)
         {
             if (!isMusicEnabled.Value) return;
-            
+
             var ap = GetAudioPlayer();
             ap.PlayMusic(clip);
         }
@@ -80,9 +80,22 @@ namespace SpaceEscape.Audio
 
             Instance = this;
 
-            isSoundEnabled.SetValue(PlayerPrefs.GetInt("sound_enabled") == 1);
-            isMusicEnabled.SetValue(PlayerPrefs.GetInt("music_enabled") == 1);
-            
+            var firstRun = PlayerPrefs.GetInt("first_run") == 0;
+            if (firstRun)
+            {
+                isSoundEnabled.SetValue(true);
+                isMusicEnabled.SetValue(true);
+                
+                PlayerPrefs.SetInt("sound_enabled", 1);
+                PlayerPrefs.SetInt("music_enabled", 1);
+                PlayerPrefs.SetInt("first_run", 1);
+            }
+            else
+            {
+                isSoundEnabled.SetValue(PlayerPrefs.GetInt("sound_enabled") == 1);
+                isMusicEnabled.SetValue(PlayerPrefs.GetInt("music_enabled") == 1);
+            }
+
             _queue = new Queue<AudioPlayer>();
             CreateAudioPlayers();
             DontDestroyOnLoad(this);

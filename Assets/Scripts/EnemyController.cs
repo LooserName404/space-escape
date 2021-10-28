@@ -5,12 +5,15 @@ namespace SpaceEscape
 {
     public class EnemyController : MonoBehaviour
     {
+        [SerializeField] private float minSpeed;
+        [SerializeField] private float maxSpeed;
+        
         private Transform _target;
         private float _moveRate;
 
         private void Awake()
         {
-            _moveRate = Random.Range(1f, 2.5f);
+            _moveRate = Random.Range(minSpeed, maxSpeed);
         }
 
         public void SetTarget(Transform target)

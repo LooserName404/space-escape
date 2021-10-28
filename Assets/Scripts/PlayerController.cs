@@ -1,6 +1,6 @@
-using System;
 using System.Collections;
 using SpaceEscape.EventSystem;
+using SpaceEscape.ScriptableObjectVariables;
 using UnityEngine;
 using SpaceEscape.Utils;
 using UnityEngine.SceneManagement;
@@ -16,19 +16,21 @@ namespace SpaceEscape
         
         [SerializeField] private PlayerShot shotPrefab;
         [SerializeField] private GameEvent onPlayerDie;
+        [SerializeField] private GameEvent onPlayerMove;
+        [SerializeField] private FloatVariable playerMovedDistance;
 
         private Rigidbody2D _rb;
 
-        private Vector2 _lastInput;
         private bool _canShoot;
         private IEnumerator _shotCooldownCoroutine;
         private Vector2 _currentForce;
+        private Vector2 _lastPosition;
 
         void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _lastInput = new Vector2();
             _canShoot = true;
+            _lastPosition = transform.position;
         }
         
         private void FixedUpdate()
@@ -40,6 +42,7 @@ namespace SpaceEscape
         {
             Shoot();
             GetForce();
+            GetMovedDistance();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -57,8 +60,9 @@ namespace SpaceEscape
         private void GetForce()
         {
             var direction = Vector2.zero;
+            var inputY = Input.acceleration.y;
             direction.x = Input.acceleration.x;
-            direction.y = Input.acceleration.y;
+            direction.y = MathUtils.RemapValue(inputY, -1f, 1f, -0.675f, 1.325f);
 
             if (direction.sqrMagnitude > 1)
             {
@@ -69,12 +73,23 @@ namespace SpaceEscape
                 }
             }
             _currentForce = direction * speed;
-            _lastInput = direction;
+        }
+
+        private void GetMovedDistance()
+        {
+            var pos = transform.position;
+            var dist = Vector2.Distance(_lastPosition, pos);
+            playerMovedDistance.Value += Mathf.Abs(dist);
+            _lastPosition = pos;
+            if (dist != 0)
+            {
+                onPlayerMove.Raise();
+            }
         }
 
         private void Move()
         {
-            _rb.AddForce(_currentForce * Time.fixedDeltaTime, ForceMode2D.Force);
+            _rb.AddForce(_currentForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
             
             var (x, y) = _rb.velocity;
             var (xAbsolute, yAbsolute) = _rb.velocity.Abs();
@@ -119,7 +134,7 @@ namespace SpaceEscape
         private IEnumerator ShotCooldown()
         {
             _canShoot = false;
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.35f);
             _canShoot = true;
         }
 

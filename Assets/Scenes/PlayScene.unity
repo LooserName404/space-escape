@@ -303,11 +303,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d8fa0e84b2985644b1e1bc630c1e2bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speed: 5
   shotSpeed: 3000
   maxVelocity: 7.5
   shotPrefab: {fileID: -5879482304583314528, guid: 49f5ab1a3a7e17e4f8bbf0d316e0e76b, type: 3}
   onPlayerDie: {fileID: 11400000, guid: 19c28f20e9804074b917da5cf4a91cdc, type: 2}
+  onPlayerMove: {fileID: 11400000, guid: 647089ed7d09625089cbed674738c339, type: 2}
+  playerMovedDistance: {fileID: 11400000, guid: 9c20a2f5580cfb01f9df0552e16152aa, type: 2}
 --- !u!50 &146327980
 Rigidbody2D:
   serializedVersion: 4
@@ -1152,6 +1154,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 789b8e80ac703ae4b8da02beb3d43f28, type: 2}
   - {fileID: 11400000, guid: d7323c708403ae45a92370650947681e, type: 2}
   - {fileID: 11400000, guid: 73f7f145c3f5656629afb1169ba9b1b2, type: 2}
+  - {fileID: 11400000, guid: 6129994bc7e84606db720b35630b8be8, type: 2}
+  - {fileID: 11400000, guid: dc67f3f7878a8c8ab81829a0770ba512, type: 2}
   completed: {fileID: 11400000, guid: ddf9c7341e1b054758dfa02b171b93e7, type: 2}
 --- !u!4 &1058648154
 Transform:
@@ -1198,6 +1202,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 146327979}
   enemyPrefab: {fileID: 7534312959544640012, guid: 8b50286e8fe534f4bbf4b4abee86c7c5, type: 3}
+  minSpawnRate: 3
+  maxSpawnRate: 5
 --- !u!4 &1064618148
 Transform:
   m_ObjectHideFlags: 0

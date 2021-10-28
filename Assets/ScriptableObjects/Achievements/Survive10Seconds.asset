@@ -9,12 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 164cb87ffaaa4daf99df8e24528fdb6c, type: 3}
-  m_Name: Kill30Enemies
+  m_Script: {fileID: 11500000, guid: 0d6b0ff7cae24727ace67f90964013ce, type: 3}
+  m_Name: Survive10Seconds
   m_EditorClassIdentifier: 
-  titleKey: achievement_kill_30_title
-  descriptionKey: achievement_kill_30_desc
+  titleKey: achievement_survive_10_title
+  descriptionKey: achievement_survive_10_desc
   completed: {fileID: 11400000, guid: ddf9c7341e1b054758dfa02b171b93e7, type: 2}
-  currentScore: {fileID: 11400000, guid: 2079279bf7a73554295882c74b80d1c9, type: 2}
-  targetValue: 30
-  onEnemyDie: {fileID: 11400000, guid: 9aa5e4a393bdcf743a4ae57c4a8a735b, type: 2}
+  onPlayerDie: {fileID: 11400000, guid: 19c28f20e9804074b917da5cf4a91cdc, type: 2}
+  secondsToWait: 10

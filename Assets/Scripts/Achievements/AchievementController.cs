@@ -13,7 +13,10 @@ namespace SpaceEscape.Achievements
         
         private void Start()
         {
-            completed.Items = JsonUtility.FromJson<SerializableStringList>(PlayerPrefs.GetString("completed_achievements")).items ?? new List<string>();
+            var fromJson =
+                JsonUtility.FromJson<SerializableStringList>(PlayerPrefs.GetString("completed_achievements"));
+            completed.Items = fromJson?.items ?? new List<string>();
+            
             var view = FindObjectOfType<AchievementView>();
             foreach (var achievement in achievements.Where(a => !completed.Items.Contains(a.Title)))
             {

@@ -8,7 +8,7 @@ namespace SpaceEscape.Achievements
     public abstract class Achievement : ScriptableObject, IEquatable<Achievement>
     {
         [SerializeField] protected string titleKey;
-        public string Title { get; }
+        public string Title => titleKey;
 
         [SerializeField] protected string descriptionKey;
 
