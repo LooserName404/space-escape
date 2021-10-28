@@ -7,7 +7,11 @@ options_menu_title,Opções,Options
 options_menu_language,Idioma,Language
 options_menu_music,Música,Music
 options_menu_sounds,Sons,Sounds
+options_menu_reset,Zerar Pontuação,Reset Score
 options_menu_back,Voltar,Back
+reset_score_menu_title,Tem certeza?,Are you sure?
+reset_score_menu_yes,Sim,Yes
+reset_score_menu_no,Não,No
 credits_menu_title,Créditos,Credits
 credits_menu_made_by_title,"Programação, Design do Jogo, SFX & “Arte”","Programming, Game Design, SFX & ""Art"""
 credits_menu_music_by_title,Música,Music
