@@ -1,5 +1,6 @@
 using System.Collections;
 using SpaceEscape.EventSystem;
+using SpaceEscape.Graphics;
 using SpaceEscape.ScriptableObjectVariables;
 using UnityEngine;
 using SpaceEscape.Utils;
@@ -18,17 +19,27 @@ namespace SpaceEscape
         [SerializeField] private GameEvent onPlayerDie;
         [SerializeField] private GameEvent onPlayerMove;
         [SerializeField] private FloatVariable playerMovedDistance;
+        [SerializeField] private Vector3Variable playerPosition;
+
+        [SerializeField] private Color colorShotBlink;
 
         private Rigidbody2D _rb;
+        private BlinkShader _blinkShader;
 
         private bool _canShoot;
         private IEnumerator _shotCooldownCoroutine;
         private Vector2 _currentForce;
         private Vector2 _lastPosition;
 
-        void Awake()
+        public void OnShoot()
+        {
+            _blinkShader.SetTintColor(colorShotBlink);
+        }
+
+        private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
+            _blinkShader = GetComponent<BlinkShader>();
             _canShoot = true;
             _lastPosition = transform.position;
         }
@@ -42,7 +53,7 @@ namespace SpaceEscape
         {
             Shoot();
             GetForce();
-            GetMovedDistance();
+            HandleMovementActions();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -75,7 +86,7 @@ namespace SpaceEscape
             _currentForce = direction * speed;
         }
 
-        private void GetMovedDistance()
+        private void HandleMovementActions()
         {
             var pos = transform.position;
             var dist = Vector2.Distance(_lastPosition, pos);
@@ -85,6 +96,7 @@ namespace SpaceEscape
             {
                 onPlayerMove.Raise();
             }
+            playerPosition.SetValue(pos);
         }
 
         private void Move()
